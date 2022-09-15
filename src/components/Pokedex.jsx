@@ -31,7 +31,7 @@ const Pokedex = () => {
         })
     }else if (pokemonQuery) {
 
-      const url = `http://pokeapi.co/api/v2/pokemon/${pokemonQuery}`
+      const url = `https://pokeapi.co/api/v2/pokemon/${pokemonQuery}`
 
       const obj = {
         results: [{url}]
@@ -40,7 +40,7 @@ const Pokedex = () => {
 
   }
     else {
-      URL = 'http://pokeapi.co/api/v2/pokemon'
+      URL = 'https://pokeapi.co/api/v2/pokemon'
     }
 
     axios.get(URL)
