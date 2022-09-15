@@ -11,7 +11,7 @@ const Home = () => {
 
   const submit = e => {
     e.preventDefault()
-    const inputValue = e.target.name.value
+    const inputValue = e.target.name.value.trim()
     
     if (inputValue.length !== 0) {
       dispatch(setTrainer(inputValue))

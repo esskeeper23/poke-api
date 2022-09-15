@@ -1,4 +1,5 @@
 import React from 'react'
+import '../header.css'
 
 const Header = () => {
   return (
@@ -6,6 +7,7 @@ const Header = () => {
         <div className='header-img-container'>
             <img src="/pokedex.jpg" alt="" />
         </div>
+        
         <div className='black-header'>
             <div className='circle'>
                 <div>
