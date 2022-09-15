@@ -8,8 +8,12 @@ import trainerSlice from '../store/slices/trainer.slice'
 import './pokedex/pokemonCard.css'
 import SearchPokemon from './pokedex/SearchPokemon'
 import SelectType from './pokedex/SelectType'
+import Pagination from './Pagination'
 
 const Pokedex = () => {
+
+  const [currentBlock, setCurrentBlock] = useState(1)
+  const [page, setPage] = useState(0)
 
   const [pokemons, setPokemons] = useState()
   const [pokemonQuery, setPokemonQuery] = useState()
@@ -42,7 +46,7 @@ const Pokedex = () => {
     axios.get(URL)
       .then(res => setPokemons(res.data))
       .catch(err => console.log(err))
-  }, [pokemonQuery, typeSelected])
+  }, [pokemonQuery, typeSelected, page])
 
   
   const nameTrainer = useSelector(state => state.trainer)
@@ -63,11 +67,21 @@ const Pokedex = () => {
       setTypeSelected={setTypeSelected} 
       typeSelected={typeSelected}
       setPokemonQuery={setPokemonQuery}
+      setCurrentBlock={setCurrentBlock}
+      setPage={setPage}
+      />
+
+      <Pagination 
+        pokemons={pokemons}
+        page={page}
+        setPage={setPage}
+        currentBlock={currentBlock}
+        setCurrentBlock={setCurrentBlock}
       />
 
       <div className='cards-container'>
         {
-          pokemons?.results.map(pokemon => (
+          pokemons?.results.slice(page * 18, (page + 1) * 18).map(pokemon => (
             <PokemonCard 
               key={pokemon.url}
               url={pokemon.url}
@@ -75,6 +89,14 @@ const Pokedex = () => {
           ))
         }
       </div>
+
+      <Pagination 
+        pokemons={pokemons}
+        page={page}
+        setPage={setPage}
+        currentBlock={currentBlock}
+        setCurrentBlock={setCurrentBlock}
+      />
     </div>
   )
 }

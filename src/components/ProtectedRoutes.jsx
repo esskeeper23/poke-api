@@ -8,8 +8,6 @@ const ProtectedRoutes = () => {
 
     const trainer = useSelector(state => state.trainer)
 
-    console.log(trainer)
-
     if (trainer) {
         return <Outlet />
     }else {

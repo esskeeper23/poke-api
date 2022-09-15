@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-const SelectType = ({setTypeSelected, typeSelected, setPokemonQuery}) => {
+const SelectType = ({setCurrentBlock, setPage, setTypeSelected, typeSelected, setPokemonQuery}) => {
 
     const [pokemonType, setPokemonType] = useState()
 
@@ -17,6 +17,8 @@ const SelectType = ({setTypeSelected, typeSelected, setPokemonQuery}) => {
     const handleSubmit = e => {
         setTypeSelected(e.target.value)
         setPokemonQuery('')
+        setPage(0)
+        setCurrentBlock(1)
     }
     
 

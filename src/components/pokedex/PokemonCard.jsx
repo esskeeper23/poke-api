@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import '../pokedex/pokemonCard.css'
 import { useNavigate } from 'react-router-dom'
+import StatPokemon from './StatPokemon'
 
-const PokemonCard = ({url}) => {
+import './styles/pokemonCard.css'
+
+const PokemonCard = ({ url }) => {
 
   const [pokemon, setPokemon] = useState()
 
@@ -13,16 +16,17 @@ const PokemonCard = ({url}) => {
       .catch(err => console.log(err))
   }, [])
 
-  console.log(pokemon)
 
   const navigate = useNavigate()
 
   const handleClick = () => navigate(`/pokedex/${pokemon.name}`)
-  
+
   return (
-    <article onClick={handleClick} className='card'>
-      <header className='pokemon-card-header'>
-        <img src={pokemon?.sprites.front_default} alt="" />
+    <article onClick={handleClick} className={`card color-${pokemon?.types[0].type.name}`}>
+      <header className={`pokemon-card-header bg-${pokemon?.types[0].type.name}`}>
+        <div>
+          <img src={pokemon?.sprites.front_default} alt="" />
+        </div>
         <h3 className='pokemon-name'>{pokemon?.name}</h3>
         <ul>
           {
@@ -33,6 +37,19 @@ const PokemonCard = ({url}) => {
         </ul>
       </header>
       <hr />
+      <footer className='card__footer'>
+        <ul className='card__list-stats'>
+          {
+            pokemon?.stats.map(stat => (
+              <StatPokemon
+                key={stat.stat.url}
+                infoStat={stat}
+                color={pokemon?.types[0].type.name}
+              />
+            ))
+          }
+        </ul>
+      </footer>
     </article>
   )
 }
